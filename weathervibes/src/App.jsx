@@ -1,35 +1,45 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import "./App.css";
+import Auth from "./components/auth.jsx";
 
 function App() {
-  const [count, setCount] = useState(0)
+    const {
+        isLoading,
+        isAuthenticated,
+        error,
+        login,
+        signup,
+        logout,
+        user,
+    } = Auth();
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    if (isLoading) return <p>Loading...</p>;
+
+    return (
+        <div style={{ padding: "2rem" }}>
+            {!isAuthenticated && (
+                <>
+                    {error && <p>Error: {error.message}</p>}
+                    <h1>Welcome!</h1>
+                    <button onClick={login}>Login</button>
+                </>
+            )}
+
+            {isAuthenticated && (
+                <>
+                    <h1>User Profile</h1>
+                    <img
+                        src={user.picture}
+                        alt={user.name}
+                        style={{ borderRadius: "50%", width: 80 }}
+                    />
+                    <p>Name: {user.name}</p>
+                    <p>Email: {user.email}</p>
+
+                    <button onClick={logout}>Logout</button>
+                </>
+            )}
+        </div>
+    );
 }
 
-export default App
+export default App;

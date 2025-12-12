@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("backendwv")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fcc853740eac49d7e60b3ec9cf847e6273c0c767")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+212b36f7f23a573f8c81c82fc41f3fbde2bc7f28")]
 [assembly: System.Reflection.AssemblyProductAttribute("backendwv")]
 [assembly: System.Reflection.AssemblyTitleAttribute("backendwv")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -1,17 +1,23 @@
 {
   "version": 2,
-  "dgSpecHash": "EdeguLFZJHM=",
+  "dgSpecHash": "YyjEoR3zXy4=",
   "success": true,
   "projectFilePath": "/Users/almaengman/WeatherVibes/backendwv/backendwv.csproj",
   "expectedPackageFiles": [
-    "/Users/almaengman/.nuget/packages/microsoft.aspnetcore.openapi/9.0.11/microsoft.aspnetcore.openapi.9.0.11.nupkg.sha512",
-    "/Users/almaengman/.nuget/packages/microsoft.extensions.apidescription.server/9.0.0/microsoft.extensions.apidescription.server.9.0.0.nupkg.sha512",
-    "/Users/almaengman/.nuget/packages/microsoft.openapi/2.3.0/microsoft.openapi.2.3.0.nupkg.sha512",
-    "/Users/almaengman/.nuget/packages/swashbuckle.aspnetcore/10.0.1/swashbuckle.aspnetcore.10.0.1.nupkg.sha512",
-    "/Users/almaengman/.nuget/packages/swashbuckle.aspnetcore.swagger/10.0.1/swashbuckle.aspnetcore.swagger.10.0.1.nupkg.sha512",
-    "/Users/almaengman/.nuget/packages/swashbuckle.aspnetcore.swaggergen/10.0.1/swashbuckle.aspnetcore.swaggergen.10.0.1.nupkg.sha512",
-    "/Users/almaengman/.nuget/packages/swashbuckle.aspnetcore.swaggerui/10.0.1/swashbuckle.aspnetcore.swaggerui.10.0.1.nupkg.sha512",
-    "/Users/almaengman/.nuget/packages/system.text.json/8.0.5/system.text.json.8.0.5.nupkg.sha512"
+    "/Users/almaengman/.nuget/packages/microsoft.aspnetcore.authentication.jwtbearer/8.0.0/microsoft.aspnetcore.authentication.jwtbearer.8.0.0.nupkg.sha512",
+    "/Users/almaengman/.nuget/packages/microsoft.extensions.apidescription.server/6.0.5/microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
+    "/Users/almaengman/.nuget/packages/microsoft.identitymodel.abstractions/7.0.3/microsoft.identitymodel.abstractions.7.0.3.nupkg.sha512",
+    "/Users/almaengman/.nuget/packages/microsoft.identitymodel.jsonwebtokens/7.0.3/microsoft.identitymodel.jsonwebtokens.7.0.3.nupkg.sha512",
+    "/Users/almaengman/.nuget/packages/microsoft.identitymodel.logging/7.0.3/microsoft.identitymodel.logging.7.0.3.nupkg.sha512",
+    "/Users/almaengman/.nuget/packages/microsoft.identitymodel.protocols/7.0.3/microsoft.identitymodel.protocols.7.0.3.nupkg.sha512",
+    "/Users/almaengman/.nuget/packages/microsoft.identitymodel.protocols.openidconnect/7.0.3/microsoft.identitymodel.protocols.openidconnect.7.0.3.nupkg.sha512",
+    "/Users/almaengman/.nuget/packages/microsoft.identitymodel.tokens/7.0.3/microsoft.identitymodel.tokens.7.0.3.nupkg.sha512",
+    "/Users/almaengman/.nuget/packages/microsoft.openapi/1.2.3/microsoft.openapi.1.2.3.nupkg.sha512",
+    "/Users/almaengman/.nuget/packages/swashbuckle.aspnetcore/6.5.0/swashbuckle.aspnetcore.6.5.0.nupkg.sha512",
+    "/Users/almaengman/.nuget/packages/swashbuckle.aspnetcore.swagger/6.5.0/swashbuckle.aspnetcore.swagger.6.5.0.nupkg.sha512",
+    "/Users/almaengman/.nuget/packages/swashbuckle.aspnetcore.swaggergen/6.5.0/swashbuckle.aspnetcore.swaggergen.6.5.0.nupkg.sha512",
+    "/Users/almaengman/.nuget/packages/swashbuckle.aspnetcore.swaggerui/6.5.0/swashbuckle.aspnetcore.swaggerui.6.5.0.nupkg.sha512",
+    "/Users/almaengman/.nuget/packages/system.identitymodel.tokens.jwt/7.0.3/system.identitymodel.tokens.jwt.7.0.3.nupkg.sha512"
   ],
   "logs": []
 }

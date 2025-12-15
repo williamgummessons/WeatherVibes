@@ -1,9 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
 
-
-
-
 function Weather() {
   const [city, setCity] = useState("");
   const [weather, setWeather] = useState(null);
@@ -21,11 +18,6 @@ function Weather() {
 
   return (
     <div>
-
-  <div>
-    <p>✅ Weather component is active</p>
-    ...
-  </div>
 
       <input
         type="text"

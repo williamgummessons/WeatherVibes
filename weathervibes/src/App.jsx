@@ -1,5 +1,7 @@
 import "./App.css";
 import Auth from "./components/auth.jsx";
+import Weather from "./components/weather.jsx";
+
 
 function App() {
     const {
@@ -36,6 +38,8 @@ function App() {
                     <p>Email: {user.email}</p>
 
                     <button onClick={logout}>Logout</button>
+                                     
+                    <Weather />
                 </>
             )}
         </div>

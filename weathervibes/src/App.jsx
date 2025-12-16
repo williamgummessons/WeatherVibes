@@ -1,7 +1,7 @@
 import "./App.css";
 import Auth from "./components/auth.jsx";
 import Weather from "./components/weather.jsx";
-
+import SpotifyApp from "./components/spotify/spotifyApp.jsx";
 
 function App() {
     const {
@@ -13,6 +13,7 @@ function App() {
         logout,
         user,
     } = Auth();
+    
 
     if (isLoading) return <p>Loading...</p>;
 
@@ -40,6 +41,8 @@ function App() {
                     <button onClick={logout}>Logga ut</button>
                                      
                     <Weather />
+                    <SpotifyApp />
+
                 </>
             )}
         </div>

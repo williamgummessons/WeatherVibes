@@ -34,6 +34,11 @@ app.use(express.static(__dirname + '/public'))
    .use(cors())
    .use(cookieParser());
 
+// Add root route to serve the index.html file
+app.get('/', function(req, res) {
+  res.sendFile(__dirname + '/index.html');
+});
+
 app.get('/login', function(req, res) {
 
   var state = generateRandomString(16);
@@ -45,7 +50,7 @@ app.get('/login', function(req, res) {
   });
 
   // your application requests authorization
-  var scope = 'user-read-private user-read-email user-read-playback-state user-modify-playback-state user-read-collaborative';
+  var scope = 'user-read-private user-read-email';
   res.redirect('https://accounts.spotify.com/authorize?' +
     querystring.stringify({
       response_type: 'code',

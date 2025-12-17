@@ -28,19 +28,35 @@ function SpotifyApp() {
   
   useEffect(() => {
     console.log("Från URL: ", getTokenFromUrl());
-    const spotifyToken = getTokenFromUrl().access_token;
+    let spotifyToken = getTokenFromUrl().access_token;
+    
+    // If no token in URL, check sessionStorage (for tokens stored before Auth0 redirect)
+    if (!spotifyToken) {
+      spotifyToken = sessionStorage.getItem('spotify_token');
+    }
+    
     window.location.hash = "";
     console.log("Spotify Token: ", spotifyToken);
-
 
     if (spotifyToken) {
       setSpotifyToken(spotifyToken);
       spotifyApi.setAccessToken(spotifyToken);
       spotifyApi.getMe().then((user) => {
         console.log("User info: ", user);
+      }).catch((error) => {
+        console.error("Error getting user info:", error);
+        // Token might be expired, clear it
+        sessionStorage.removeItem('spotify_token');
+        sessionStorage.removeItem('spotify_refresh_token');
+        setLoggedIn(false);
+        return;
       });
       setLoggedIn(true);
       console.log("User logged in");
+      
+      // Clear the stored token since we've successfully used it
+      sessionStorage.removeItem('spotify_token');
+      sessionStorage.removeItem('spotify_refresh_token');
     }
   },[]);
 

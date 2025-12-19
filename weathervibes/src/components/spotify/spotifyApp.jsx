@@ -1,114 +1,104 @@
-import '../../App.css';
-import React, { useEffect, useState } from 'react';
-import SpotifyWebApi from 'spotify-web-api-js';
-import LoginButton from './loginButton';
-import SearchForm from './searchForm';
-import PlaylistList from './playlistList';
-import EmbedPlayer from './embedPlayer';
+import "../../App.css";
+import { useEffect, useState } from "react";
+import SpotifyWebApi from "spotify-web-api-js";
+
+import SearchForm from "./searchForm";
+import PlaylistList from "./playlistList";
+import EmbedPlayer from "./embedPlayer";
+import LoginButton from "./loginButton";
 
 const spotifyApi = new SpotifyWebApi();
 
+// Hjälpfunktion: läs token från URL-hash
 const getTokenFromUrl = () => {
   return window.location.hash
     .substring(1)
-    .split('&')
+    .split("&")
     .reduce((initial, item) => {
-      let parts = item.split('=');
+      const parts = item.split("=");
       initial[parts[0]] = decodeURIComponent(parts[1]);
       return initial;
     }, {});
-}
+};
 
 function SpotifyApp() {
-  const [spotifyToken, setSpotifyToken] = useState("");
+  const [loggedIn, setLoggedIn] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [embedUrl, setEmbedUrl] = useState("");
-  const [loggedIn, setLoggedIn] = useState(false);
-  
+
+  // Körs vid mount – hanterar Spotify OAuth-resultat
   useEffect(() => {
-    console.log("Från URL: ", getTokenFromUrl());
-    let spotifyToken = getTokenFromUrl().access_token;
-    
-    // If no token in URL, check sessionStorage (for tokens stored before Auth0 redirect)
-    if (!spotifyToken) {
-      spotifyToken = sessionStorage.getItem('spotify_token');
-    }
-    
-    window.location.hash = "";
-    console.log("Spotify Token: ", spotifyToken);
+    const hash = getTokenFromUrl();
 
-    if (spotifyToken) {
-      setSpotifyToken(spotifyToken);
-      spotifyApi.setAccessToken(spotifyToken);
-      spotifyApi.getMe().then((user) => {
-        console.log("User info: ", user);
-      }).catch((error) => {
-        console.error("Error getting user info:", error);
-        // Token might be expired, clear it
-        sessionStorage.removeItem('spotify_token');
-        sessionStorage.removeItem('spotify_refresh_token');
-        setLoggedIn(false);
-        return;
-      });
+    // 1️⃣ Token från redirect (första gången)
+    if (hash.access_token) {
+      sessionStorage.setItem("spotify_token", hash.access_token);
+      spotifyApi.setAccessToken(hash.access_token);
       setLoggedIn(true);
-      console.log("User logged in");
-      
-      // Clear the stored token since we've successfully used it
-      sessionStorage.removeItem('spotify_token');
-      sessionStorage.removeItem('spotify_refresh_token');
-    }
-  },[]);
 
-  const searchPlaylists = (e) => {
-    e.preventDefault();
-    if (!searchQuery.trim()) return;
-
-    spotifyApi.searchPlaylists(searchQuery).then((response) => {
-      console.log("Search results: ", response);
-      setSearchResults(response.playlists.items.slice(0, 3));
-    }).catch((err) => {
-      console.error("Search error: ", err);
-    });
-  }
-
-  const playPlaylist = (playlist) => {
-    console.log("Playing playlist:", playlist);
-    const playlistUri = playlist?.uri;
-    console.log("Playlist URI:", playlistUri);
-    const playlistId = playlistUri?.split(":")?.pop();
-    console.log("Playlist ID:", playlistId);
-
-    if (!playlistId) {
-      alert("Kan ej starta playlist(troligen saknas ID)");
+      // Rensa URL (viktigt!)
+      window.location.hash = "";
       return;
     }
 
-    const url = `https://open.spotify.com/embed/playlist/${playlistId}?utm_source=generator`;
-    console.log("Embeddad URL:", url);
-    setEmbedUrl(url);
-  }
+    // 2️⃣ Token från sessionStorage (vid refresh)
+    const storedToken = sessionStorage.getItem("spotify_token");
+    if (storedToken) {
+      spotifyApi.setAccessToken(storedToken);
+      setLoggedIn(true);
+    }
+  }, []);
+
+  const searchPlaylists = async (e) => {
+    e.preventDefault();
+    if (!searchQuery.trim()) return;
+
+    try {
+      const response = await spotifyApi.searchPlaylists(searchQuery);
+      setSearchResults(response.playlists.items.slice(0, 3));
+    } catch (err) {
+      console.error("Search error:", err);
+    }
+  };
+
+  const playPlaylist = (playlist) => {
+    const playlistId = playlist?.uri?.split(":").pop();
+    if (!playlistId) return;
+
+    setEmbedUrl(
+      `https://open.spotify.com/embed/playlist/${playlistId}`
+    );
+  };
 
   return (
     <div className="App">
-      {!loggedIn && <LoginButton />}
+      {/* Ej Spotify-auktoriserad */}
+      {!loggedIn && (
+        <>
+          <p>För att använda Spotify-funktioner behöver du ge Spotify-åtkomst.</p>
+          <LoginButton />
+        </>
+      )}
+
+      {/* Spotify-auktoriserad */}
       {loggedIn && (
-        <div>
-          <SearchForm 
+        <>
+          <SearchForm
             searchQuery={searchQuery}
             setSearchQuery={setSearchQuery}
             onSearch={searchPlaylists}
           />
 
           {!embedUrl && (
-            <PlaylistList 
+            <PlaylistList
               playlists={searchResults}
               onPlayPlaylist={playPlaylist}
             />
           )}
 
           <EmbedPlayer embedUrl={embedUrl} />
-        </div>
+        </>
       )}
     </div>
   );

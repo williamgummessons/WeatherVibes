@@ -115,18 +115,17 @@ function SpotifyApp() {
       {/* Spotify-auktoriserad */}
       {loggedIn && (
         <>
-          <button onClick={searchPlaylistsForWeather} style={{ padding: "8px 16px", margin: "16px" }}>
-            Sök spellistor för väder: {weatherMainValue ? `${weatherMainValue} weather` : "(ingen sökning)"}
-          </button>
+          <div className="mb-3">
+            <button className="btn btn-primary" onClick={searchPlaylistsForWeather}>
+              Sök spellistor för väder: {weatherMainValue ? `${weatherMainValue} weather` : "(ingen sökning)"}
+            </button>
+          </div>
 
-          <div style={{ display: 'flex', gap: 16, alignItems: 'flex-start', justifyContent: 'center', marginTop: 16 }}>
-            <div style={{ flex: '1 1 320px', maxWidth: 280 }}>
-              <PlaylistList
-                playlists={searchResults}
-                onPlayPlaylist={playPlaylist}
-              />
+          <div className="row g-3">
+            <div className="col-md-4">
+              <PlaylistList playlists={searchResults} onPlayPlaylist={playPlaylist} />
             </div>
-            <div style={{ flex: '0 0 360px', minWidth: 620 }}>
+            <div className="col-md-8">
               <EmbedPlayer embedUrl={embedUrl} />
             </div>
           </div>

@@ -2,33 +2,28 @@ import React from 'react';
 
 const PlaylistList = ({ playlists, onPlayPlaylist }) => {
   return (
-    <div style={{ marginTop: "20px" }}>
-      {playlists?.filter(p => p).map((playlist) => (
-        <div
-          key={playlist?.id}
-          style={{
-            border: "1px solid #ccc",
-            padding: "10px",
-            marginBottom: "10px",
-            borderRadius: "4px"
-          }}
-        >
-          <h4>{playlist?.name || "Unknown Playlist"}</h4>
-          <p>by {playlist?.owner?.display_name || "Unknown"} - {playlist?.tracks?.total || 0} tracks</p>
-          {playlist?.images && playlist?.images[0] && (
-            <img
-              src={playlist?.images[0]?.url}
-              alt="Playlist"
-              style={{ width: "150px", borderRadius: "4px" }}
-            />
-          )}
-          <br />
-          <button
-            onClick={() => onPlayPlaylist(playlist)}
-            style={{ marginTop: "10px", padding: "8px 16px", cursor: "pointer" }}
-          >
-            Play Playlist
-          </button>
+    <div className="mt-3">
+      {playlists?.filter((p) => p).map((playlist) => (
+        <div key={playlist?.id} className="card mb-3">
+          <div className="row g-0 align-items-center">
+            <div className="col-auto p-3">
+              {playlist?.images && playlist?.images[0] && (
+                <img
+                  src={playlist?.images[0]?.url}
+                  alt="Playlist"
+                  className="img-fluid rounded"
+                  style={{ width: 120 }}
+                />
+              )}
+            </div>
+            <div className="col">
+              <div className="card-body">
+                <h5 className="card-title mb-1">{playlist?.name || "Unknown Playlist"}</h5>
+                <p className="card-subtitle text-muted small mb-2">by {playlist?.owner?.display_name || "Unknown"} - {playlist?.tracks?.total || 0} tracks</p>
+                <button onClick={() => onPlayPlaylist(playlist)} className="btn btn-primary btn-sm">Play Playlist</button>
+              </div>
+            </div>
+          </div>
         </div>
       ))}
     </div>

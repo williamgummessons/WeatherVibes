@@ -4,19 +4,18 @@ const EmbedPlayer = ({ embedUrl }) => {
   if (!embedUrl) return null;
 
   return (
-    <div style={{ marginTop: "24px", backgroundColor: "lightblue", padding: "10px" }}>
-      <h3>Embedded Player</h3>
-      <p>Debug embeddad URL: {embedUrl}</p>
-      <p>EmbedUrl state: {embedUrl ? "SET" : "NOT SET"}</p>
-      <iframe
-        src={embedUrl}
-        width="100%"
-        height="380"
-        style={{ border: "1px solid red", borderRadius: "12px" }}
-        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-        loading="lazy"
-        title="Spotify Playlist"
-      />
+    <div className="card mt-3">
+      <div className="card-body">
+        <h5 className="card-title">Embedded Player</h5>
+        <p className="text-muted small">EmbedUrl: {embedUrl ? "SET" : "NOT SET"}</p>
+        <div className="ratio ratio-16x9 mt-2" style={{ minHeight: 200 }}>
+          <iframe
+            src={embedUrl}
+            title="Spotify Playlist"
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          />
+        </div>
+      </div>
     </div>
   );
 };

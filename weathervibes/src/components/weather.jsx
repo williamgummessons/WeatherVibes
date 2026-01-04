@@ -30,38 +30,43 @@ function Weather() {
     <div>
       {/* Visa sökrutan bara om inget väder är hämtat än */}
       {!weather && (
-        <>
-          <input
-            type="text"
-            placeholder="Skriv stad..."
-            value={city}
-            onChange={(e) => setCity(e.target.value)}
-          />
-          <button onClick={getWeather}>Sök väder</button>
-        </>
+        <form onSubmit={(e) => { e.preventDefault(); getWeather(); }} className="mb-3">
+          <div className="input-group">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Skriv stad..."
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
+            />
+            <button className="btn btn-primary" type="submit">Sök väder</button>
+          </div>
+        </form>
       )}
 
       {/* Visa väderresultatet och en knapp för att ändra/återställa sökning */}
       {weather && (
-        <div>
-          <h2>{weather.name}</h2>
-          <p>Temperatur: {weather.main.temp} °C</p>
-          <p>Väder: {weather.weather[0].main}</p>
-          <button
-            onClick={() => {
-              setWeather(null);
-              setCity("");
-              try {
-                sessionStorage.removeItem("weatherMain");
-              } catch (e) {}
-              try {
-                window.dispatchEvent(new CustomEvent("weatherUpdated", { detail: "" }));
-              } catch (e) {}
-            }}
-            style={{ marginTop: 8 }}
-          >
-            Ändra stad
-          </button>
+        <div className="card">
+          <div className="card-body text-start">
+            <h5 className="card-title">{weather.name}</h5>
+            <p className="card-text">Temperatur: {weather.main.temp} °C</p>
+            <p className="card-text">Väder: {weather.weather[0].main}</p>
+            <button
+              onClick={() => {
+                setWeather(null);
+                setCity("");
+                try {
+                  sessionStorage.removeItem("weatherMain");
+                } catch (e) {}
+                try {
+                  window.dispatchEvent(new CustomEvent("weatherUpdated", { detail: "" }));
+                } catch (e) {}
+              }}
+              className="btn btn-outline-secondary mt-2"
+            >
+              Ändra stad
+            </button>
+          </div>
         </div>
       )}
     </div>

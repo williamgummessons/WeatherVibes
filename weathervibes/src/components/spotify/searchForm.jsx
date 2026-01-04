@@ -3,18 +3,18 @@ import React from 'react';
 const SearchForm = ({ searchQuery, setSearchQuery, onSearch }) => {
   return (
     <div>
-      <h2>Search Playlists</h2>
-      <form onSubmit={onSearch}>
-        <input
-          type="text"
-          placeholder="Sök efter playlist..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          style={{ padding: "8px", width: "300px" }}
-        />
-        <button type="submit" style={{ padding: "8px 16px", marginLeft: "8px" }}>
-          Search
-        </button>
+      <h2 className="h5">Sök spellistor</h2>
+      <form onSubmit={onSearch} className="mb-3">
+        <div className="input-group">
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Sök efter playlist..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          <button type="submit" className="btn btn-primary">Sök</button>
+        </div>
       </form>
     </div>
   );

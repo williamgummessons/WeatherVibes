@@ -82,16 +82,9 @@ function SpotifyApp() {
     }
   };
 
-  // När weatherMainValue ändras, sök automatiskt (om inloggad), eller rensa resultat
-  useEffect(() => {
-    if (!weatherMainValue) {
-      setSearchResults([]);
-      return;
-    }
-    if (loggedIn) {
-      searchPlaylistsForWeather();
-    }
-  }, [weatherMainValue, loggedIn]);
+  // Tidigare: automatiskt sök när `weatherMainValue` ändrades.
+  // Nu: vi uppdaterar `weatherMainValue` via eventlisten ovan, men söker
+  // endast när användaren explicit klickar på sökknappen.
 
   const playPlaylist = (playlist) => {
     const playlistId = playlist?.uri?.split(":").pop();

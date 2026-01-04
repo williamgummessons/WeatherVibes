@@ -82,6 +82,17 @@ function SpotifyApp() {
     }
   };
 
+  // När weatherMainValue ändras, sök automatiskt (om inloggad), eller rensa resultat
+  useEffect(() => {
+    if (!weatherMainValue) {
+      setSearchResults([]);
+      return;
+    }
+    if (loggedIn) {
+      searchPlaylistsForWeather();
+    }
+  }, [weatherMainValue, loggedIn]);
+
   const playPlaylist = (playlist) => {
     const playlistId = playlist?.uri?.split(":").pop();
     if (!playlistId) return;
@@ -108,14 +119,17 @@ function SpotifyApp() {
             Sök spellistor för väder: {weatherMainValue ? `${weatherMainValue} weather` : "(ingen sökning)"}
           </button>
 
-          {!embedUrl && (
-            <PlaylistList
-              playlists={searchResults}
-              onPlayPlaylist={playPlaylist}
-            />
-          )}
-
-          <EmbedPlayer embedUrl={embedUrl} />
+          <div style={{ display: 'flex', gap: 16, alignItems: 'flex-start', justifyContent: 'center', marginTop: 16 }}>
+            <div style={{ flex: '1 1 320px', maxWidth: 280 }}>
+              <PlaylistList
+                playlists={searchResults}
+                onPlayPlaylist={playPlaylist}
+              />
+            </div>
+            <div style={{ flex: '0 0 360px', minWidth: 620 }}>
+              <EmbedPlayer embedUrl={embedUrl} />
+            </div>
+          </div>
         </>
       )}
     </div>

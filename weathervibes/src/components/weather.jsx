@@ -28,19 +28,40 @@ function Weather() {
 
   return (
     <div>
-      <input
-        type="text"
-        placeholder="Skriv stad..."
-        value={city}
-        onChange={(e) => setCity(e.target.value)}
-      />
-      <button onClick={getWeather}>Sök väder</button>
+      {/* Visa sökrutan bara om inget väder är hämtat än */}
+      {!weather && (
+        <>
+          <input
+            type="text"
+            placeholder="Skriv stad..."
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+          />
+          <button onClick={getWeather}>Sök väder</button>
+        </>
+      )}
 
+      {/* Visa väderresultatet och en knapp för att ändra/återställa sökning */}
       {weather && (
         <div>
           <h2>{weather.name}</h2>
           <p>Temperatur: {weather.main.temp} °C</p>
           <p>Väder: {weather.weather[0].main}</p>
+          <button
+            onClick={() => {
+              setWeather(null);
+              setCity("");
+              try {
+                sessionStorage.removeItem("weatherMain");
+              } catch (e) {}
+              try {
+                window.dispatchEvent(new CustomEvent("weatherUpdated", { detail: "" }));
+              } catch (e) {}
+            }}
+            style={{ marginTop: 8 }}
+          >
+            Ändra stad
+          </button>
         </div>
       )}
     </div>

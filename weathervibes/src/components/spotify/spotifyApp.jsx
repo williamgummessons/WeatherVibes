@@ -2,10 +2,11 @@ import "../../App.css";
 import { useEffect, useState } from "react";
 import SpotifyWebApi from "spotify-web-api-js";
 
-import SearchForm from "./searchForm";
+// SearchForm intentionally not used — weather-driven search only
 import PlaylistList from "./playlistList";
 import EmbedPlayer from "./embedPlayer";
 import LoginButton from "./loginButton";
+import { getWeatherMain } from "../weather";
 
 const spotifyApi = new SpotifyWebApi();
 
@@ -26,6 +27,7 @@ function SpotifyApp() {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [embedUrl, setEmbedUrl] = useState("");
+  const [weatherMainValue, setWeatherMainValue] = useState(getWeatherMain());
 
   // Körs vid mount – hanterar Spotify OAuth-resultat
   useEffect(() => {
@@ -50,13 +52,31 @@ function SpotifyApp() {
     }
   }, []);
 
-  const searchPlaylists = async (e) => {
-    e.preventDefault();
-    if (!searchQuery.trim()) return;
+  useEffect(() => {
+    const handler = (e) => setWeatherMainValue(e?.detail || getWeatherMain());
+    window.addEventListener("weatherUpdated", handler);
+    return () => window.removeEventListener("weatherUpdated", handler);
+  }, []);
 
+  const searchPlaylists = async (e) => {
+    if (e && e.preventDefault) e.preventDefault();
+    const q = (searchQuery || "").trim();
+    if (!q) return;
     try {
-      const response = await spotifyApi.searchPlaylists(searchQuery);
+      const response = await spotifyApi.searchPlaylists(q);
       setSearchResults(response.playlists.items.slice(0, 3));
+    } catch (err) {
+      console.error("Search error:", err);
+    }
+  };
+
+  const searchPlaylistsForWeather = async () => {
+    const q = (weatherMainValue ? `${weatherMainValue} weather` : "").trim();
+    if (!q) return;
+    try {
+      const response = await spotifyApi.searchPlaylists(q);
+      setSearchResults(response.playlists.items.slice(0, 3));
+      setSearchQuery(q);
     } catch (err) {
       console.error("Search error:", err);
     }
@@ -84,11 +104,9 @@ function SpotifyApp() {
       {/* Spotify-auktoriserad */}
       {loggedIn && (
         <>
-          <SearchForm
-            searchQuery={searchQuery}
-            setSearchQuery={setSearchQuery}
-            onSearch={searchPlaylists}
-          />
+          <button onClick={searchPlaylistsForWeather} style={{ padding: "8px 16px", margin: "16px" }}>
+            Sök spellistor för väder: {weatherMainValue ? `${weatherMainValue} weather` : "(ingen sökning)"}
+          </button>
 
           {!embedUrl && (
             <PlaylistList

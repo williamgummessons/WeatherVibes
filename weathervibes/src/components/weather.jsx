@@ -1,24 +1,33 @@
 import { useState } from "react";
 import axios from "axios";
 
+let weatherMain = "";
+
 function Weather() {
   const [city, setCity] = useState("");
   const [weather, setWeather] = useState(null);
 
   const getWeather = async () => {
-  try {
-    const res = await axios.get(
-      `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=da82f83c23d06aa3757738aa9d02b2e5&units=metric`
-    );
-    setWeather(res.data);
-  } catch (err) {
-    console.error("Fel vid hämtning av väder:", err);
-  }
-};
+    try {
+      const res = await axios.get(
+        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=da82f83c23d06aa3757738aa9d02b2e5&units=metric`
+      );
+      setWeather(res.data);
+      const main = res.data?.weather?.[0]?.main || "";
+      weatherMain = main;
+      try {
+        sessionStorage.setItem("weatherMain", main);
+      } catch (e) {}
+      try {
+        window.dispatchEvent(new CustomEvent("weatherUpdated", { detail: main }));
+      } catch (e) {}
+    } catch (err) {
+      console.error("Fel vid hämtning av väder:", err);
+    }
+  };
 
   return (
     <div>
-
       <input
         type="text"
         placeholder="Skriv stad..."
@@ -36,6 +45,14 @@ function Weather() {
       )}
     </div>
   );
+}
+
+export function getWeatherMain() {
+  try {
+    return sessionStorage.getItem("weatherMain") || weatherMain || "";
+  } catch (e) {
+    return weatherMain || "";
+  }
 }
 
 export default Weather;

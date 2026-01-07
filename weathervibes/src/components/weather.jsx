@@ -27,27 +27,30 @@ function Weather() {
   };
 
   return (
-    <div>
-      {/* Visa sökrutan bara om inget väder är hämtat än */}
-      {!weather && (
-        <form onSubmit={(e) => { e.preventDefault(); getWeather(); }} className="mb-3">
-          <div className="input-group">
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Skriv stad..."
-              value={city}
-              onChange={(e) => setCity(e.target.value)}
-            />
-            <button className="btn btn-primary" type="submit">Sök väder</button>
+    <div className="card h-100">
+      <div className="card-body">
+        {/* Visa sökrutan bara om inget väder är hämtat än */}
+        {!weather && (
+          <div>
+            <h5 className="card-title">Väder</h5>
+            <form onSubmit={(e) => { e.preventDefault(); getWeather(); }} className="mb-3">
+              <div className="input-group">
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Skriv stad..."
+                  value={city}
+                  onChange={(e) => setCity(e.target.value)}
+                />
+                <button className="btn btn-primary" type="submit">Sök väder</button>
+              </div>
+            </form>
           </div>
-        </form>
-      )}
+        )}
 
-      {/* Visa väderresultatet och en knapp för att ändra/återställa sökning */}
-      {weather && (
-        <div className="card">
-          <div className="card-body text-start">
+        {/* Visa väderresultatet och en knapp för att ändra/återställa sökning */}
+        {weather && (
+          <div>
             <h5 className="card-title">{weather.name}</h5>
             <p className="card-text">Temperatur: {weather.main.temp} °C</p>
             <p className="card-text">Väder: {weather.weather[0].main}</p>
@@ -62,13 +65,13 @@ function Weather() {
                   window.dispatchEvent(new CustomEvent("weatherUpdated", { detail: null }));
                 } catch (e) {}
               }}
-              className="btn btn-outline-secondary mt-2"
+              className="btn btn-primary mt-2"
             >
               Ändra stad
             </button>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }

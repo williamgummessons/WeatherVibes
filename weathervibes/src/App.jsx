@@ -96,24 +96,26 @@ function App() {
 
       {error && <div className="alert alert-danger">Error: {error.message}</div>}
 
-      <div className="mb-4">
-        <Weather />
-      </div>
-
-      {/* Chatten, ska endast visas när väderdata hämtats */}
-      {weatherData && (
-        <div className="mb-4">
-          <div className="card">
-            <div className="card-body">
-              <h2 className="card-title h5">Chat - {weatherData} Weather Room</h2>
-              { !chatConnection 
-                ? <WaitingRoom joinChatRoom={joinChatRoom} />
-                : <ChatRoom messages={messages} sendMessage={sendMessage} />
-              }
-            </div>
+      <div className="row mb-4">
+        <div className="col-md-6 d-flex">
+          <div className="w-100">
+            <Weather />
           </div>
         </div>
-      )}
+        {weatherData && (
+          <div className="col-md-6 d-flex">
+            <div className="card w-100">
+              <div className="card-body">
+                <h2 className="card-title h5">Chat - {weatherData} Weather Room</h2>
+                { !chatConnection 
+                  ? <WaitingRoom joinChatRoom={joinChatRoom} />
+                  : <ChatRoom messages={messages} sendMessage={sendMessage} />
+                }
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
 
       <div className="mb-4">
         <h2 className="h5">Spotify</h2>

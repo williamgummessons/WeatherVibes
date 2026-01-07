@@ -11,8 +11,11 @@
   },
   "dependencies": {
     "@auth0/auth0-react": "^2.11.0",
+    "@microsoft/signalr": "^10.0.0",
     "axios": "^1.13.2",
+    "bootstrap": "^5.3.8",
     "react": "^19.2.0",
+    "react-bootstrap": "^2.10.10",
     "react-dom": "^19.2.0",
     "spotify-web-api-js": "^1.5.2"
   },

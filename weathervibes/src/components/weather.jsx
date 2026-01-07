@@ -59,7 +59,7 @@ function Weather() {
                   sessionStorage.removeItem("weatherMain");
                 } catch (e) {}
                 try {
-                  window.dispatchEvent(new CustomEvent("weatherUpdated", { detail: "" }));
+                  window.dispatchEvent(new CustomEvent("weatherUpdated", { detail: null }));
                 } catch (e) {}
               }}
               className="btn btn-outline-secondary mt-2"

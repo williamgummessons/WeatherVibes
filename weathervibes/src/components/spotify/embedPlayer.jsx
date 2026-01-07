@@ -6,8 +6,8 @@ const EmbedPlayer = ({ embedUrl }) => {
   return (
     <div className="card mt-3">
       <div className="card-body">
-        <h5 className="card-title">Embedded Player</h5>
-        <p className="text-muted small">EmbedUrl: {embedUrl ? "SET" : "NOT SET"}</p>
+        <h5 className="card-title">Vädermusikspelare</h5>
+        {/* <p className="text-muted small">EmbedUrl: {embedUrl ? "SET" : "NOT SET"}</p> */}
         <div className="ratio ratio-16x9 mt-2" style={{ minHeight: 200 }}>
           <iframe
             src={embedUrl}

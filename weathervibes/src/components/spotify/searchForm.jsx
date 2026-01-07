@@ -9,7 +9,7 @@ const SearchForm = ({ searchQuery, setSearchQuery, onSearch }) => {
           <input
             type="text"
             className="form-control"
-            placeholder="Sök efter playlist..."
+            placeholder="Sök efter spellista..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />

@@ -19,7 +19,7 @@ const PlaylistList = ({ playlists, onPlayPlaylist }) => {
             <div className="col">
               <div className="card-body">
                 <h5 className="card-title mb-1">{playlist?.name || "Unknown Playlist"}</h5>
-                <p className="card-subtitle text-muted small mb-2">by {playlist?.owner?.display_name || "Unknown"} - {playlist?.tracks?.total || 0} tracks</p>
+                <p className="card-subtitle text-muted small mb-2">av {playlist?.owner?.display_name || "Unknown"} - {playlist?.tracks?.total || 0} tracks</p>
                 <button onClick={() => onPlayPlaylist(playlist)} className="btn btn-primary btn-sm">Play Playlist</button>
               </div>
             </div>

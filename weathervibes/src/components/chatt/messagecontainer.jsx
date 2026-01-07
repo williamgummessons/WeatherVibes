@@ -13,7 +13,7 @@ const MessageContainer = ({ messages }) => {
                 </table>
             ) : (
                 <div className="text-muted text-center p-3">
-                    No messages yet. Start the conversation!
+                    Inga meddelanden än. Starta konversationen!
                 </div>
             )}
         </div>

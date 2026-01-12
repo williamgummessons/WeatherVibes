@@ -82,10 +82,6 @@ function SpotifyApp() {
     }
   };
 
-  // Tidigare: automatiskt sök när `weatherMainValue` ändrades.
-  // Nu: vi uppdaterar `weatherMainValue` via eventlisten ovan, men söker
-  // endast när användaren explicit klickar på sökknappen.
-
   const playPlaylist = (playlist) => {
     const playlistId = playlist?.uri?.split(":").pop();
     if (!playlistId) return;
@@ -97,7 +93,6 @@ function SpotifyApp() {
 
   return (
     <div className="App">
-      {/* Ej Spotify-auktoriserad */}
       {!loggedIn && (
         <>
           <p>För att använda Spotify-funktioner behöver du ge Spotify-åtkomst.</p>
@@ -105,7 +100,6 @@ function SpotifyApp() {
         </>
       )}
 
-      {/* Spotify-auktoriserad */}
       {loggedIn && (
         <>
           <div className="mb-3">

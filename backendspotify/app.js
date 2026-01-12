@@ -14,9 +14,9 @@ var cors = require('cors');
 var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
 
-var client_id = 'be15bb594907404dbeb79debaf2752c8'; // your clientId
-var client_secret = '3398a08f3a3349eeaa3093eeb7cb681a'; // Your secret
-var redirect_uri = 'http://127.0.0.1:8888/callback'; // Your redirect uri
+var client_id = 'be15bb594907404dbeb79debaf2752c8';
+var client_secret = '3398a08f3a3349eeaa3093eeb7cb681a';
+var redirect_uri = 'http://127.0.0.1:8888/callback'; 
 
 
 const generateRandomString = (length) => {
@@ -34,7 +34,7 @@ app.use(express.static(__dirname + '/public'))
    .use(cors())
    .use(cookieParser());
 
-// Add root route to serve the index.html file
+
 app.get('/', function(req, res) {
   res.sendFile(__dirname + '/index.html');
 });
@@ -49,7 +49,7 @@ app.get('/login', function(req, res) {
     path: '/',
   });
 
-  // your application requests authorization
+  
   var scope = 'user-read-private user-read-email';
   res.redirect('https://accounts.spotify.com/authorize?' +
     querystring.stringify({
@@ -63,8 +63,7 @@ app.get('/login', function(req, res) {
 
 app.get('/callback', function(req, res) {
 
-  // your application requests refresh and access tokens
-  // after checking the state parameter
+  
 
   var code = req.query.code || null;
   var state = req.query.state || null;
@@ -107,12 +106,12 @@ app.get('/callback', function(req, res) {
           json: true
         };
 
-        // use the access token to access the Spotify Web API
+        
         request.get(options, function(error, response, body) {
           console.log(body);
         });
 
-        // we can also pass the token to the browser to make requests from there
+        
         res.redirect('http://localhost:5173/?spotify=true#' +
           querystring.stringify({
             access_token: access_token,

@@ -1,6 +1,6 @@
 const MessageContainer = ({ messages }) => {
     return (
-        <div>
+        <div style={{ height: '400px', overflowY: 'scroll' }}>
             {messages.length > 0 ? (
                 <table className="table table-striped table-bordered">
                     <tbody>

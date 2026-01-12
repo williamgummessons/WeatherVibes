@@ -1,8 +1,6 @@
 import "../../App.css";
 import { useEffect, useState } from "react";
 import SpotifyWebApi from "spotify-web-api-js";
-
-// SearchForm intentionally not used — weather-driven search only
 import PlaylistList from "./playlistList";
 import EmbedPlayer from "./embedPlayer";
 import LoginButton from "./loginButton";
